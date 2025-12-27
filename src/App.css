@@ -1,38 +1,130 @@
-.App {
-  text-align: center;
+/* --- GLOBAL FONTS & RESET --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow: hidden; /* Prevents double scrollbars */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* --- LAYOUT STRUCTURE (Matches App.js classes) --- */
+.app-container {
+  display: flex;       /* Forces side-by-side */
+  height: 100vh;       /* Full screen height */
+  width: 100vw;        /* Full screen width */
+  overflow: hidden;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.sidebar-container {
+  width: 260px;        /* Fixed width for sidebar */
+  flex-shrink: 0;      /* Never shrink */
+  height: 100%;
+  overflow-y: auto;    /* Allow sidebar scroll if needed */
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content-container {
+  flex: 1;             /* Take remaining space */
+  height: 100%;
+  overflow-y: auto;    /* Scroll ONLY the content, not the sidebar */
+  padding: 30px;
+  position: relative;
+}
+
+/* --- DARK MODE THEME (Default) --- */
+body {
+  background-color: #0f172a; /* Deep Navy Blue */
+  color: #f1f5f9;            /* Off-white text */
+}
+
+/* Dark Mode Card Style (Glassmorphism) */
+.card {
+  background: rgba(30, 41, 59, 0.7); 
+  backdrop-filter: blur(10px);
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px); /* Subtle lift effect */
+  border-color: rgba(99, 102, 241, 0.3); /* Glow on hover */
+}
+
+/* --- LIGHT MODE THEME --- */
+body:not(.dark-mode) {
+  background-color: #f8fafc; /* Very light gray */
+  color: #1e293b;            /* Dark text */
+}
+
+/* Light Mode Card Style */
+body:not(.dark-mode) .card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  color: #1e293b;
+}
+
+body:not(.dark-mode) .sidebar-container {
+  border-right: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
+
+/* --- INPUTS & BUTTONS --- */
+input, select {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: inherit;
+  padding: 12px;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+}
+
+body:not(.dark-mode) input {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-primary:disabled {
+  background: #64748b;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Animation */
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
